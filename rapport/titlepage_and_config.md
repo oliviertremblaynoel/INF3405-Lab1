@@ -6,21 +6,20 @@ titlepage: true
 title: |
   |
   |
-  |
   | Département de génie informatique et génie logiciel
-  |
+  | Hiver 2023
   |
   |
   |
 subtitle: |
-  | LOG1410
-  | Analyse et conception de logiciels
+  | INF3405
+  | Réseaux Informatiques
   |
   |
   |
-  |
-  |  Laboratoire no. 1
-  |
+  | Travail pratique N° 1 : 
+  | Projet en réseaux informatiques
+  | Gestionnaire de fichier
   |
   |
   |
@@ -28,7 +27,6 @@ author: |
   | Gabriel Bruyere (2248817) 
   | Nils Coulier (2077378)
   | Olivier Tremblay-Noël (1903926)
-  |
   | 
   |
   |
@@ -36,9 +34,9 @@ author: |
   |
   |
   |
-  |
 date:  |
-  | Hiver 2023
+  | 17 février 2023
+  |  Soumis à : Bilal Itani
 toc: true
 toc-title: Table des matières # new 
 toc-depth: 3
