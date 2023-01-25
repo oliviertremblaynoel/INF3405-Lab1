@@ -1,8 +1,10 @@
 - [ ] Programme : Nos objectifs
     - [x] exit -> OLI
     - [x] ls -> OLI
-    - [x] mkdir -> NILS
-    - [ ] cd  -> GAB
+    - [x] mkdir -> OLI
+        - [ ] Ajouter correction si pas de deuxième mot-> NILS
+        - [ ] FIX : Client freezes after successful mkdir -> NILS
+    - [ ] cd -> GAB
     
     - [ ] L'interface client (Switch case) - started
     - [ ] Server message header : remove / symbol

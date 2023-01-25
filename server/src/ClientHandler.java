@@ -52,7 +52,13 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
                     out.writeUTF(str); // envoi de message
                 }else if(message.startsWith("mkdir")){
                     String dir = message.split(" ")[1];
-                    new File(dir).mkdirs();
+                    File newDir = new File(dir);
+                    if (!newDir.exists()){
+                        newDir.mkdirs();
+                    }else{
+                        out.writeUTF("folder already exists"); 
+                    }
+
                 }else if(message.startsWith("cd")){
                     System.out.println(currentDir);
             }
