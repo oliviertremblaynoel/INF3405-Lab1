@@ -18,6 +18,7 @@ class RecommencerEssai {
                 System.out.println("Réponse invalide.");
             }
         }
+       entreeUtil.close();
     }
     public static void main(String[] args){
         new RecommencerEssai();
