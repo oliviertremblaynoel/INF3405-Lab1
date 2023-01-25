@@ -28,3 +28,4 @@
         - [ ]Les projets Eclipse du client et du serveur incluant les fichiers sources (.java), autrement dit le dossier en entier contenant votre projet
         - [ ] Le rapport au format PDF
         - [ ] Les fichiers exécutables de votre client et votre serveur (.jar)
+        testgab
