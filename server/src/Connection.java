@@ -26,28 +26,12 @@ class Connection {
             Matcher m = p.matcher(sortie);
             entreeValide = m.matches();
             if (!entreeValide){
-                recommencerEssai();
+               new RecommencerEssai();
             }
         }
         return sortie;
     }
 
-    private void recommencerEssai () {
-        System.out.println("Entrée invalide.");
-        boolean essai = true;
-        while (essai) {
-            System.out.println("Souhaitez-vous réessayer o/n?");
-            String reponse = entreeUtil.nextLine();
-            if (reponse.compareToIgnoreCase("N") == 0) {
-                System.out.println("Terminaison du programme");
-                System.exit(0);
-            } else if (reponse.compareToIgnoreCase("O") == 0) {
-                essai = false;
-            } else {
-                System.out.println("Réponse invalide.");
-            }
-        }
-    }
     public static void main(String[] args){
         Connection a = new Connection();
         System.out.println("IP : " + a.ip);

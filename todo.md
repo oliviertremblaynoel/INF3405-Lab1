@@ -1,6 +1,8 @@
 - [ ] Programme Consignes du cours
+    - [ ] Vérifier la validité de l’adresse IP saisie (uniquement le format) et le numéro de port (entre 5000 et 5050)
+        - Si on entre le mauvais port, message d'erreur
+        - Ressayer ou quitter
     - [ ] Saisie des paramètres du serveur dans l’interface console du client et celle du serveur (adresse IP et port d’écoute entre 5000 et 5050)
-    - [x] Vérifier la validité de l’adresse IP saisie (uniquement le format) et le numéro de port (entre 5000 et 5050)
     - [ ] Téléverser et télécharger un fichier
     - [ ] Pouvoir se déplacer dans la hiérarchie des répertoires du serveur de stockage à partir du client
     - [ ] Pouvoir énumérer les répertoires et les fichiers au niveau du serveur de stockage à partir du client
@@ -10,12 +12,13 @@
 
 - [ ] Programme : Nos objectifs
     - [ ] L'interface client (Switch case)
-    - [ ] Upload client-server
-    - [ ] Download client-server
-    - [ ] ls
-    - [ ] cd
-    - [ ] mkdir
-    - [ ] exit
+    - [ ] Upload client-server -> NILS
+    - [ ] Download client-server -> NILS
+    - [ ] ls -> OLI
+    - [ ] cd  -> GAB
+    - [ ] mkdir -> NILS
+    - [ ] exit -> OLI
+    - [ ] Interface switch case englobant le tout ->
     - [ ] Compiler le tout
 
 - [ ] Rapport : 3 pages max
