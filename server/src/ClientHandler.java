@@ -43,11 +43,7 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
                     String str = "";
                     File[] filesList = curDir.listFiles();
                     for (File f : filesList) {
-                        if (f.isDirectory())
                         str = str + f.getName() + "\n";
-                        if (f.isFile()) {
-                            str = str + f.getName() + "\n";
-                        }
                     }
                     out.writeUTF(str); // envoi de message
                 }else if(message.startsWith("mkdir")){
@@ -59,9 +55,9 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
                         out.writeUTF("folder already exists"); 
                     }
 
-                }else if(message.startsWith("cd")){
+                }/* else if(message.startsWith("cd")){
                     System.out.println(currentDir);
-            }
+            } */
         }
 
         } catch (IOException e) {

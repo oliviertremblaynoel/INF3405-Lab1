@@ -51,9 +51,15 @@ public class Client {
                 socket.close();
                 System.out.println("Vous avez été déconnecté avec succès.");
                 System.exit(0);
-            } else if (commande.matches("ls") || commande.startsWith("mkdir")|| commande.startsWith("cd")) {
+            } else if (commande.matches("ls")) {
+                // if mkdir/cd suivi de plus de deux nom de fichier -> commande invalide? 
                 out.writeUTF(commande); // envoi de message
                 System.out.println(in.readUTF());
+            } else if (commande.startsWith("mkdir") && commande.split(" ").length == 2) {
+                out.writeUTF(commande); // envoi de message
+            } else if (commande.startsWith("cd")) {
+                System.out.print(
+                        "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");
             } else if (commande.matches("aide")) {
                 System.out.print(
                         "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");

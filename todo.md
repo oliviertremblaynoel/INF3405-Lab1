@@ -1,9 +1,11 @@
 - [ ] Programme : Nos objectifs
     - [x] exit -> OLI
     - [x] ls -> OLI
+        - [ ] ls peut afficher les fichiers/dossiers hidden?
     - [x] mkdir -> OLI
-        - [ ] Ajouter correction si pas de deuxième mot-> NILS
-        - [ ] FIX : Client freezes after successful mkdir -> NILS
+        - [X] Ajouter correction si pas de deuxième mot-> NILS
+        - [X] FIX : Client freezes after successful mkdir -> NILS
+        - [ ] À CONFIRMER : mkdir peut créer plusieurs dossiers?
     - [ ] cd -> GAB
     
     - [ ] L'interface client (Switch case) - started
