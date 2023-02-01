@@ -23,7 +23,7 @@ public class Client {
 
             try {
                 // Création d'une nouvelle connexion aves le serveur
-                socket = new Socket(serverAddress, port); // pour test seulement
+                socket = new Socket(serverAddress, port);
                 entreeValide = true;
             } catch (ConnectException e) {
                 System.out.println("Impossible de connecter au server");
@@ -33,19 +33,15 @@ public class Client {
         }
         System.out.format("Serveur lancé sur [%s:%d]\n", serverAddress, port);
 
-        // Céatien d'un canal entrant pour recevoir les messages envoyés, par le serveur
-        DataInputStream in = new DataInputStream(socket.getInputStream());
-
-        // Attente de la réception d'un message envoyé par le, server sur le canal
-        System.out.println(in.readUTF());
-
-        // création de canal d’envoi
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-        out.writeUTF("Byebye#"); // envoi de message
-
+        DataInputStream in = new DataInputStream(socket.getInputStream()); // Céatien d'un canal entrant pour recevoir les messages envoyés, par le serveur
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream()); // création de canal d’envoi
+                
+        System.out.println(in.readUTF()); // Attente de la réception d'un message de bienvenue envoyé par le server sur le canal
+        
         while (true) {
-            String commande = input.nextLine();
-            // Switch case impossible because of pattern matching of strings
+            String commande = input.nextLine(); // attendre le prochain message de l'utilisateur
+
+            // Note : Switch case impossible because of pattern matching of strings
             if (commande.matches("exit")) {
                 out.writeUTF(commande); // envoi de message
                 socket.close();
@@ -54,10 +50,16 @@ public class Client {
             } else if (commande.matches("ls") || commande.startsWith("mkdir")|| commande.startsWith("cd")) {
                 out.writeUTF(commande); // envoi de message
                 System.out.println(in.readUTF());
+            } else if (commande.startsWith("download")) {
+                out.writeUTF(commande); // envoi de message
+                new RecieveFile(out, commande, socket);
+                
+            } else if (commande.startsWith("upload")) {
+                new SendFile(out, commande, socket);
             } else if (commande.matches("aide")) {
                 System.out.print(
                         "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");
-            } else {
+            }else {
                 System.out.println("Commande invalide. Pour voir les commandes possibles, entrez : aide");
             }
         }

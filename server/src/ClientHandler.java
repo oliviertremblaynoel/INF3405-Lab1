@@ -1,7 +1,9 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,54 +17,40 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
     public ClientHandler(Socket socket, int clientNumber) {
         this.socket = socket;
         this.clientNumber = clientNumber;
-        System.out.println("New connection with client#" + clientNumber + " at" + socket);
+        System.out.println("Nouvelle connection avec client #" + clientNumber + " à : \n" + socket);
     }
 
     public void run() { // Création de thread qui envoi un message à un client
         try {
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream()); // création de canal d’envoi
-            out.writeUTF("Hello from server - you are client#" + clientNumber); // envoi de message
-
-            // Céatien d'un canal entrant pour recevoir les messages envoyés, par le serveur
-            DataInputStream in = new DataInputStream(socket.getInputStream());
-            // Attente de la réception d'un message envoyé par le, server sur le canal
-            String byeMessageFromClient = in.readUTF();
-            System.out.println(byeMessageFromClient);
-
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream()); // création de canal d’envoi            
+            DataInputStream in = new DataInputStream(socket.getInputStream()); // Céatien d'un canal entrant pour recevoir les messages envoyés, par le serveur
+            
+            
+            
+            out.writeUTF("Message du server : Vous êtes le client #" + clientNumber); 
+            
             boolean connected = true;
             while (connected) {
 
-                String message = in.readUTF();
-                System.out.println(header() + message);
+                String message = in.readUTF(); // Attendre le prochain message du client
+                System.out.println(header() + message); // Afficher la commande envoyée par le client sur le server
 
-                // Switch case impossible because of pattern matching of strings
-                if (message.matches("exit")){
+                // Note : Ici, Switch case impossible à cause du pattern matching de la string
+                if (message.matches("exit")) {
+                    // sortir de la boucle while et déconnecter le client 
                     connected = false;
-                }else if(message.matches("ls")){
-                    File curDir = new File(currentDir);
-                    String str = "";
-                    File[] filesList = curDir.listFiles();
-                    for (File f : filesList) {
-                        if (f.isDirectory())
-                        str = str + f.getName() + "\n";
-                        if (f.isFile()) {
-                            str = str + f.getName() + "\n";
-                        }
-                    }
-                    out.writeUTF(str); // envoi de message
-                }else if(message.startsWith("mkdir")){
-                    String dir = message.split(" ")[1];
-                    File newDir = new File(dir);
-                    if (!newDir.exists()){
-                        newDir.mkdirs();
-                    }else{
-                        out.writeUTF("folder already exists"); 
-                    }
-
-                }else if(message.startsWith("cd")){
-                    System.out.println(currentDir);
+                } else if (message.matches("ls")) {                    
+                    out.writeUTF(new Ls().Ls(currentDir)); // afficher le dossier courant
+                } else if (message.startsWith("mkdir")) {
+                    new Mkdir(out, message); // créer un dossier
+                } else if (message.startsWith("cd")) {
+                    // changer le dossier courant 
+                } else if (message.startsWith("download")) {
+                    new SendFile(out, message, socket);// envoyer un fichier au client
+                } else if (message.startsWith("upload")) {
+                    new RecieveFile(out, message, socket); // recevoir un fichier du client
+                }
             }
-        }
 
         } catch (IOException e) {
             System.out.println("Error handling client# " + clientNumber + ": " + e);
