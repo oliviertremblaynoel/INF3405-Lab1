@@ -1,5 +1,7 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Scanner;
@@ -58,8 +60,26 @@ public class Client {
             } else if (commande.startsWith("mkdir") && commande.split(" ").length == 2) {
                 out.writeUTF(commande); // envoi de message
             } else if (commande.startsWith("cd")) {
-                System.out.print(
-                        "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");
+                // à implémenter
+            } else if (commande.startsWith("upload") && commande.split(" ").length == 2) {
+                String filenameString = commande.split(" ")[1];
+                File uploadFile = new File(filenameString);
+                if (uploadFile.exists()) {
+                    FileInputStream f = new FileInputStream(uploadFile);
+                    byte[] byteArray = new byte[(int)uploadFile.length()];
+                    f.read(byteArray);
+                    f.close();
+                    out.writeUTF(commande);
+                    out.writeInt(byteArray.length);
+                    out.write(byteArray);
+                }
+                else {
+                    System.out.println("Le nom du fichier que vous essayez d'upload n'existe pas. Pour voir les commandes possibles, entrez : aide");
+                }
+
+                /* for (File f : curDir.listFiles()) {
+                    if (f.getName() == filenameString);
+                } */
             } else if (commande.matches("aide")) {
                 System.out.print(
                         "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");

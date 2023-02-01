@@ -1,6 +1,7 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
@@ -31,7 +32,6 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
 
             boolean connected = true;
             while (connected) {
-
                 String message = in.readUTF();
                 System.out.println(header() + message);
 
@@ -54,10 +54,18 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
                     }else{
                         out.writeUTF("folder already exists"); 
                     }
-
-                }/* else if(message.startsWith("cd")){
-                    System.out.println(currentDir);
-            } */
+                }else if(message.startsWith("upload")){
+                    int size = in.readInt();
+                    byte[] buffer = new byte[size];
+                    in.read(buffer);
+                    File uploadedFile = new File("test"); 
+                    uploadedFile.createNewFile();
+                    FileOutputStream f = new FileOutputStream(uploadedFile);
+                    f.write(buffer);
+                    //System.out.println(uploadedFile.getName());
+                    /* FileOutputStream f = new FileOutputStream(message.split(" ")[1]);
+                    f.write(buffer); */
+                }
         }
 
         } catch (IOException e) {
