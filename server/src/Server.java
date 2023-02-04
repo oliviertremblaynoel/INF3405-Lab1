@@ -23,7 +23,7 @@ public class Server {
             // À chaque fois qu'un nouveau client se, connecte, on exécute la fonction run() de l'objet ClientHandler
             while (true) {
                 // Important : la fonction accept() est bloquante: attend qu'un prochain client se connecte. Une nouvetle connection : on incémente le compteur clientNumber
-                new ClientHandler(Listener.accept(), serverIP, clientNumber++).start();
+                new ClientHandler(Listener.accept(), clientNumber++).start();
             }
         } finally {
             // Fermeture de la connexion

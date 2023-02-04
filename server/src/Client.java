@@ -54,24 +54,17 @@ public class Client {
             } else if (commande.matches("ls") || commande.startsWith("mkdir")|| commande.startsWith("cd")) {
                 
                 out.writeUTF(commande); // envoi de message
-                System.out.println(in.readUTF());
+                System.out.println(in.readUTF()); // Retour du message
 
-            } else if (commande.startsWith("download") || commande.startsWith("upload")) {
+            } else if (commande.startsWith("download")) {
+  
+                out.writeUTF(commande); 
+                new RecieveFile(commande, in);
                 
-                out.writeUTF(commande); // envoi de commande
-                TimeUnit.SECONDS.sleep(1); // Wait 1 second for server to start socket
-                Socket transferSocket = new Socket(serverAddress, transferPort);
-                
-                if (commande.startsWith("download")) {
-                    
-                    new RecieveFile(commande, transferSocket);
-                    
-                } else if (commande.startsWith("upload")) {
-                    
-                    new SendFile(commande, transferSocket);// envoyer un fichier au client
-                } 
- 
-                transferSocket.close();
+            } else if (commande.startsWith("upload")) {
+
+                out.writeUTF(commande); 
+                new SendFile(commande, out);// envoyer un fichier au client
 
             } else if (commande.matches("aide")) {
 
