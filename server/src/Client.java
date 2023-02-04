@@ -3,12 +3,14 @@ import java.io.DataOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 // Application client
 public class Client {
     private static Socket socket;
     private static String serverAddress;
     private static int port;
+    private static int transferPort = 6543;
     private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
@@ -43,24 +45,43 @@ public class Client {
 
             // Note : Switch case impossible because of pattern matching of strings
             if (commande.matches("exit")) {
+
                 out.writeUTF(commande); // envoi de message
                 socket.close();
                 System.out.println("Vous avez été déconnecté avec succès.");
                 System.exit(0);
+                
             } else if (commande.matches("ls") || commande.startsWith("mkdir")|| commande.startsWith("cd")) {
+                
                 out.writeUTF(commande); // envoi de message
                 System.out.println(in.readUTF());
-            } else if (commande.startsWith("download")) {
-                out.writeUTF(commande); // envoi de message
-                new RecieveFile(out, commande, socket);
+
+            } else if (commande.startsWith("download") || commande.startsWith("upload")) {
                 
-            } else if (commande.startsWith("upload")) {
-                new SendFile(out, commande, socket);
+                out.writeUTF(commande); // envoi de commande
+                TimeUnit.SECONDS.sleep(1); // Wait 1 second for server to start socket
+                Socket transferSocket = new Socket(serverAddress, transferPort);
+                
+                if (commande.startsWith("download")) {
+                    
+                    new RecieveFile(commande, transferSocket);
+                    
+                } else if (commande.startsWith("upload")) {
+                    
+                    new SendFile(commande, transferSocket);// envoyer un fichier au client
+                } 
+ 
+                transferSocket.close();
+
             } else if (commande.matches("aide")) {
+
                 System.out.print(
                         "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");
+
             }else {
+
                 System.out.println("Commande invalide. Pour voir les commandes possibles, entrez : aide");
+
             }
         }
     }
