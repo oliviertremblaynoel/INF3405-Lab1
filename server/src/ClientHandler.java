@@ -1,5 +1,6 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.time.LocalDate;
@@ -20,7 +21,9 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
     public void run() { // Création de thread qui envoi un message à un client
         try {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream()); // création de canal d’envoi
-            DataInputStream in = new DataInputStream(socket.getInputStream()); // Céatien d'un canal entrant pour recevoir les messages envoyés, par le serveur
+            DataInputStream in = new DataInputStream(socket.getInputStream()); // Céatien d'un canal entrant pour
+                                                                               // recevoir les messages envoyés, par le
+                                                                               // serveur
 
             out.writeUTF("Message du server : Vous êtes le client #" + clientNumber);
 
@@ -38,18 +41,18 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
 
                 } else if (message.matches("ls")) {
 
-                    out.writeUTF(new Ls().Ls(currentDir)); // afficher le dossier courant
+                    out.writeUTF(ls()); // afficher le dossier courant
 
                 } else if (message.startsWith("mkdir")) {
 
-                    new Mkdir(out, message); // créer un dossier
+                    mkdir(out, message); // créer un dossier
 
                 } else if (message.startsWith("cd")) {
                     // changer le dossier courant
                 } else if (message.startsWith("download")) {
-                    
+
                     new SendFile(message, out);// envoyer un fichier au client
-                    
+
                 } else if (message.startsWith("upload")) {
 
                     new RecieveFile(message, in); // recevoir un fichier du client
@@ -69,7 +72,33 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
     }
 
     private String header() {
-        return "[" + socket.getInetAddress().toString().substring(1) + ":" + socket.getPort() + " - " + LocalDate.now() + "@"
+        return "[" + socket.getInetAddress().toString().substring(1) + ":" + socket.getPort() + " - " + LocalDate.now()
+                + "@"
                 + LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "] : ";
+    }
+
+    private String ls() {
+
+        File curDir = new File(currentDir);
+        String str = "";
+        File[] filesList = curDir.listFiles();
+        for (File f : filesList) {
+            if (f.isDirectory())
+                str = str + f.getName() + "\n";
+            if (f.isFile()) {
+                str = str + f.getName() + "\n";
+            }
+        }
+        return str;
+    }
+
+    private void mkdir(DataOutputStream out, String message) throws IOException {
+        String dir = message.split(" ")[1];
+        File newDir = new File(dir);
+        if (!newDir.exists()) {
+            newDir.mkdirs();
+        } else {
+            out.writeUTF("le dossier existe déjà");
+        }
     }
 }

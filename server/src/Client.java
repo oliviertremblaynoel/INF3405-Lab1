@@ -3,14 +3,12 @@ import java.io.DataOutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 // Application client
 public class Client {
     private static Socket socket;
     private static String serverAddress;
     private static int port;
-    private static int transferPort = 6543;
     private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
@@ -51,11 +49,15 @@ public class Client {
                 System.out.println("Vous avez été déconnecté avec succès.");
                 System.exit(0);
                 
-            } else if (commande.matches("ls") || commande.startsWith("mkdir")|| commande.startsWith("cd")) {
+            } else if (commande.matches("ls")) {
                 
                 out.writeUTF(commande); // envoi de message
                 System.out.println(in.readUTF()); // Retour du message
+ 
+            } else if (commande.startsWith("mkdir")|| commande.startsWith("cd")) {
 
+                out.writeUTF(commande); // envoi de message
+                
             } else if (commande.startsWith("download")) {
   
                 out.writeUTF(commande); 
