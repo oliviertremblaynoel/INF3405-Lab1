@@ -102,7 +102,7 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
 
     private void mkdir(DataOutputStream out, String message) throws IOException {
         String dir = message.split(" ")[1];
-        File newDir = new File(dir);
+        File newDir = new File(currentDir + dir);
         if (!newDir.exists()) {
             newDir.mkdirs();
         } else {
