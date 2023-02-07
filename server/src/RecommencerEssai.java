@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 class RecommencerEssai {
-    public RecommencerEssai () {
+    public RecommencerEssai() {
         System.out.println("Entrée invalide.");
         boolean essai = true;
         Scanner entreeUtil = new Scanner(System.in);
@@ -18,9 +18,10 @@ class RecommencerEssai {
                 System.out.println("Réponse invalide.");
             }
         }
-       entreeUtil.close();
+        entreeUtil.close();
     }
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         new RecommencerEssai();
     }
 }

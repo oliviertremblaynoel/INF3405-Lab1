@@ -7,9 +7,9 @@ import java.io.IOException;
 public class SendFile {
     public SendFile(String commande, DataOutputStream out) throws IOException {
         File file = new File(commande.split(" ")[1]);
-        
+
         try {
-            FileInputStream fileInputStream = new FileInputStream(file);      
+            FileInputStream fileInputStream = new FileInputStream(file);
             String confirm = "OK";
             out.writeUTF(confirm);
 
@@ -24,7 +24,7 @@ public class SendFile {
         } catch (FileNotFoundException e) {
 
             String confirm = "NOTOK";
-            out.writeUTF(confirm);            
+            out.writeUTF(confirm);
             System.out.println("File not found");
 
         }
