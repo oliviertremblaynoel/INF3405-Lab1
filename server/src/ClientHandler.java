@@ -14,55 +14,41 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
     private int clientNumber;
     private String currentDir = System.getProperty("user.dir");
     private String dirDEP = currentDir;
-    
 
-    public ClientHandler(Socket socket, int clientNumber) {
+    public ClientHandler(Socket socket, int clientNumber) throws IOException {
         this.socket = socket;
         this.clientNumber = clientNumber;
-        System.out.println("New connection with client#" + clientNumber + " at" + socket);
+        System.out.println("Nouvelle connection avec client #" + clientNumber + " à : \n" + socket);
     }
 
     public void run() { // Création de thread qui envoi un message à un client
         System.out.println(currentDir);
         try {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream()); // création de canal d’envoi
-            out.writeUTF("Hello from server - you are client#" + clientNumber); // envoi de message
+            DataInputStream in = new DataInputStream(socket.getInputStream()); // Céatien d'un canal entrant pour
+                                                                               // recevoir les messages envoyés, par le
+                                                                               // serveur
 
-            // Céatien d'un canal entrant pour recevoir les messages envoyés, par le serveur
-            DataInputStream in = new DataInputStream(socket.getInputStream());
-            // Attente de la réception d'un message envoyé par le, server sur le canal
-            String byeMessageFromClient = in.readUTF();
-            System.out.println(byeMessageFromClient);
+            out.writeUTF("Message du server : Vous êtes le client #" + clientNumber);
 
-            boolean connected = true;
+            boolean connected = true; // flag pour quitter le programme
             while (connected) {
 
-                String message = in.readUTF();
-                System.out.println(header() + message);
+                String message = in.readUTF(); // Attendre le prochain message du client
+                System.out.println(header() + message); // Afficher la commande envoyée par le client sur le server
 
-                // Switch case impossible because of pattern matching of strings
-                if (message.matches("exit")){
+                // Note : Ici, Switch case impossible à cause du pattern matching de la string
+                if (message.matches("exit")) {
+
+                    // sortir de la boucle while et déconnecter le client
                     connected = false;
                 }else if(message.matches("ls")){
-                    File curDir = new File(currentDir);
-                    String str = "";
-                    File[] filesList = curDir.listFiles();
-                    for (File f : filesList) {
-                        if (f.isDirectory())
-                        str = str + f.getName() + "\n";
-                        if (f.isFile()) {
-                            str = str + f.getName() + "\n";
-                        }
-                    }
-                    out.writeUTF(str); // envoi de message
+
+                    out.writeUTF(ls()); // afficher le dossier co
+
                 }else if(message.startsWith("mkdir")){
-                    String dir = message.split(" ")[1];
-                    File newDir = new File(dir);
-                    if (!newDir.exists()){
-                        newDir.mkdirs();
-                    }else{
-                        out.writeUTF("folder already exists"); 
-                    }
+
+                    mkdir(out, message); // créer un dossier
 
                 }else if(message.startsWith("cd ")){
 
@@ -183,9 +169,34 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
     
     }
     private String header() {
-        return "[" + socket.getInetAddress() + ":" + socket.getPort() + " - " + LocalDate.now() + "@"
+        return "[" + socket.getInetAddress().toString().substring(1) + ":" + socket.getPort() + " - " + LocalDate.now()
+                + "@"
                 + LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + "] : ";
     
     }
+
+    private String ls() {
+
+        File curDir = new File(currentDir);
+        String str = "";
+        File[] filesList = curDir.listFiles();
+        for (File f : filesList) {
+            if (f.isDirectory())
+                str = str + f.getName() + "\n";
+            if (f.isFile()) {
+                str = str + f.getName() + "\n";
+            }
+        }
+        return str;
     }
 
+    private void mkdir(DataOutputStream out, String message) throws IOException {
+        String dir = message.split(" ")[1];
+        File newDir = new File(dir);
+        if (!newDir.exists()) {
+            newDir.mkdirs();
+        } else {
+            out.writeUTF("le dossier existe déjà");
+        }
+    }
+}
