@@ -50,7 +50,7 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
                 } else if (message.startsWith("cd")) {
                     // changer le dossier courant
                 } else if (message.startsWith("download")) {
-
+                    
                     new SendFile(message, out);// envoyer un fichier au client
 
                 } else if (message.startsWith("upload")) {
