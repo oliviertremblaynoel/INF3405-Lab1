@@ -22,7 +22,7 @@ public class Client {
             port = 5000; // pour test seulement
 
             try {
-                // Création d'une nouvelle connexion aves le serveur
+                // Création d'une nouvelle connexion avec le serveur
                 socket = new Socket(serverAddress, port); // pour test seulement
                 entreeValide = true;
             } catch (ConnectException e) {
@@ -51,9 +51,12 @@ public class Client {
                 socket.close();
                 System.out.println("Vous avez été déconnecté avec succès.");
                 System.exit(0);
-            } else if (commande.matches("ls") || commande.startsWith("mkdir")|| commande.startsWith("cd")) {
-                out.writeUTF(commande); // envoi de message
+            } else if (commande.matches("ls") || commande.startsWith("mkdir")) {
+                out.writeUTF(commande); // envoi de messoage
                 System.out.println(in.readUTF());
+            } else if(commande.startsWith("cd ")){
+                out.writeUTF(commande);
+
             } else if (commande.matches("aide")) {
                 System.out.print(
                         "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");
