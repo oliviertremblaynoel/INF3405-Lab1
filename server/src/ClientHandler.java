@@ -50,6 +50,14 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
 
                     mkdir(out, message); // créer un dossier
 
+                }else if (message.startsWith("download")) {
+
+                    new SendFile(message, out);// envoyer un fichier au client
+
+                } else if (message.startsWith("upload")) {
+
+                    new RecieveFile(message, in); // recevoir un fichier du client
+
                 }else if(message.startsWith("cd ")){
 
                     ArrayDeque<String> cd_coupe = new ArrayDeque<>();
