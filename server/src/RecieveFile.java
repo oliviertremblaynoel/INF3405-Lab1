@@ -2,12 +2,12 @@ import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 public class RecieveFile {
-    public RecieveFile(String commande, DataInputStream in) throws IOException {
-
-        String[] tmp = commande.split("/"); // Process command name
+    public RecieveFile(String command, DataInputStream in) throws IOException {
+        String filePath = command.split(" ")[1]; // Process command name
+        String[] tmp = filePath.split("/"); // Process command name
         String fileName = tmp[tmp.length - 1]; // isolate file name without path
 
-        try {
+        if(in.readUTF().equals( "OK")) {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             
             long size = in.readLong(); // read file size
@@ -19,8 +19,11 @@ public class RecieveFile {
                 size -= bytes;
             }
             fileOutputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        } else {
+
+            System.out.println("File not found");
+
         }
     }
 }
