@@ -10,6 +10,7 @@ public class Client {
     private static String serverAddress;
     private static int port;
     private static Scanner input = new Scanner(System.in);
+    private static String currentDir = System.getProperty("user.dir");
 
     public static void main(String[] args) throws Exception {
         boolean entreeValide = false;
@@ -65,12 +66,12 @@ public class Client {
             } else if (commande.startsWith("download")) {
 
                 out.writeUTF(commande);
-                new RecieveFile(commande, in);
+                new RecieveFile(currentDir, commande, in);
 
             } else if (commande.startsWith("upload")) {
 
                 out.writeUTF(commande);
-                new SendFile(commande, out);// envoyer un fichier au client
+                new SendFile(currentDir, commande, out);// envoyer un fichier au client
 
             } else if (commande.matches("aide")) {
 

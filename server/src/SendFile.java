@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SendFile {
-    public SendFile(String commande, DataOutputStream out) throws IOException {
-        File file = new File(commande.split(" ")[1]);
+    public SendFile(String currentDir, String commande, DataOutputStream out) throws IOException {
+        File file = new File(currentDir + "/" + commande.split(" ")[1]);
 
         try {
             FileInputStream fileInputStream = new FileInputStream(file);

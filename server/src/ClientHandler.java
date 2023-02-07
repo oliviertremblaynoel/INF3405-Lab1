@@ -52,11 +52,10 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
 
                 } else if (message.startsWith("download")) {
 
-                    new SendFile(message, out);// envoyer un fichier au client
+                    new SendFile(currentDir, message, out);// envoyer un fichier au client
 
                 } else if (message.startsWith("upload")) {
-
-                    new RecieveFile(message, in); // recevoir un fichier du client
+                    new RecieveFile(currentDir, message, in); // recevoir un fichier du client
 
                 } else if (message.startsWith("cd ")) {
 
@@ -102,7 +101,8 @@ public class ClientHandler extends Thread { // pour traiter la demande de chaque
 
     private void mkdir(DataOutputStream out, String message) throws IOException {
         String dir = message.split(" ")[1];
-        File newDir = new File(currentDir + dir);
+        File newDir = new File(currentDir + '\\' + dir);
+        System.out.println(newDir.getPath());
         if (!newDir.exists()) {
             newDir.mkdirs();
         } else {

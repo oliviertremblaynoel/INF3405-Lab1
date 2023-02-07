@@ -3,10 +3,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class RecieveFile {
-    public RecieveFile(String command, DataInputStream in) throws IOException {
+    public RecieveFile(String currentDir, String command, DataInputStream in) throws IOException {
         String filePath = command.split(" ")[1]; // Process command name
         String[] tmp = filePath.split("/"); // Process command name
         String fileName = tmp[tmp.length - 1]; // isolate file name without path
+        fileName = currentDir + "/" + fileName; 
 
         if (in.readUTF().equals("OK")) {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
