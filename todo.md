@@ -2,31 +2,34 @@
     - [x] exit -> OLI
     - [x] ls -> OLI
     - [x] mkdir -> OLI
-        - [ ] Ajouter correction si pas de deuxième mot-> NILS
-        - [ ] FIX : Client freezes after successful mkdir -> NILS
-    - [ ] cd -> GAB
+        - [x] Ajouter correction si pas de deuxième mot-> NILS
+        - [x] FIX : Client freezes after successful mkdir -> NILS
     
-    - [ ] L'interface client (Switch case) - started
-    - [ ] Server message header : remove / symbol
-    - [ ] Upload client-server -> NILS
-    - [ ] Download client-server -> NILS
-    - [ ] BONUS : prevent Traversal attack (prevent cd .. or ls ..)
+    - [x] L'interface client (Switch case) - started
+    - [x] Server message header : remove / symbol
+    - [x] Upload client-server -> NILS
+    - [x] Download client-server -> NILS
+    - [x] BONUS : prevent Traversal attack (prevent cd ..)
+    - [x] cd -> GAB
+      - [ ] Corriger front slash
+    - [x] Remettre le verif IP (après tous les tests)
+      - [ ] ip pas de 0 avant nombre -> 001.002.etc
     - [ ] Compiler le tout
 
 
 ---
 
-- [ ] Programme Consignes du cours
+- [x] Programme Consignes du cours
     - [x] Vérifier la validité de l’adresse IP saisie (uniquement le format) et le numéro de port (entre 5000 et 5050)
         - Si on entre le mauvais port, message d'erreur
         - Ressayer ou quitter
-    - [ ] Saisie des paramètres du serveur dans l’interface console du client et celle du serveur (adresse IP et port d’écoute entre 5000 et 5050)
-    - [ ] Téléverser et télécharger un fichier
-    - [ ] Pouvoir se déplacer dans la hiérarchie des répertoires du serveur de stockage à partir du client
+    - [x] Saisie des paramètres du serveur dans l’interface console du client et celle du serveur (adresse IP et port d’écoute entre 5000 et 5050)
+    - [x] Téléverser et télécharger un fichier
+    - [x] Pouvoir se déplacer dans la hiérarchie des répertoires du serveur de stockage à partir du client
     - [x] Pouvoir énumérer les répertoires et les fichiers au niveau du serveur de stockage à partir du client
-    - [ ] Pouvoir créer un répertoire à partir du client sur le serveur de stockage à partir du client
-    - [ ] Pouvoir se déconnecter adéquatement du serveur de stockage
-    - [ ] Afficher en temps réel les demandes à traiter (logs au niveau de la console serveur)
+    - [x] Pouvoir créer un répertoire à partir du client sur le serveur de stockage à partir du client
+    - [x] Pouvoir se déconnecter adéquatement du serveur de stockage
+    - [x] Afficher en temps réel les demandes à traiter (logs au niveau de la console serveur)
 
 - [ ] Rapport : 3 pages max
 

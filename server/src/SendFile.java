@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SendFile {
-    public SendFile(String currentDir, String commande, DataOutputStream out) throws IOException {
-        File file = new File(currentDir + "/" + commande.split(" ")[1]);
+    public SendFile(String currentDir, String command, DataOutputStream out) throws IOException {
+        File file = new File(currentDir + "/" + command.split(" ")[1]);
 
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
@@ -25,7 +25,7 @@ public class SendFile {
 
             String confirm = "NOTOK";
             out.writeUTF(confirm);
-            System.out.println("File not found");
+            System.out.println("Fichier non trouvé");
 
         }
     }

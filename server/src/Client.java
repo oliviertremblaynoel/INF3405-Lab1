@@ -13,70 +13,68 @@ public class Client {
     private static String currentDir = System.getProperty("user.dir");
 
     public static void main(String[] args) throws Exception {
-        boolean entreeValide = false;
-        while (!entreeValide) {
-            // Connection connectInfos = new Connection();
-            // serverAddress = connectInfos.ip;
-            // port = Integer.parseInt(connectInfos.port);
-
-            serverAddress = "127.0.0.1"; // Pour test seulement
-            port = 5000; // pour test seulement
+        boolean validInput = false;
+        while (!validInput) {
+            Connection connectInfos = new Connection();
+            serverAddress = connectInfos.ip;
+            port = Integer.parseInt(connectInfos.port);
 
             try {
                 // Création d'une nouvelle connexion aves le serveur
                 socket = new Socket(serverAddress, port);
-                // Création d'une nouvelle connexion avec le serveur
-                socket = new Socket(serverAddress, port); // pour test seulement
-                entreeValide = true;
+                validInput = true;
             } catch (ConnectException e) {
                 System.out.println("Impossible de connecter au server");
-                new RecommencerEssai();
-                entreeValide = false;
+                new Retry();
+                validInput = false;
             }
         }
         System.out.format("Serveur lancé sur [%s:%d]\n", serverAddress, port);
 
-        DataInputStream in = new DataInputStream(socket.getInputStream()); // Céatien d'un canal entrant pour recevoir
-                                                                           // les messages envoyés, par le serveur
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream()); // création de canal d’envoi
+        DataInputStream in = new DataInputStream(socket.getInputStream()); // Création d'un canal entrant pour recevoir les messages envoyés, par le serveur
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream()); // Création du canal d’envoi
 
-        System.out.println(in.readUTF()); // Attente de la réception d'un message de bienvenue envoyé par le server sur
-                                          // le canal
+        System.out.println(in.readUTF()); // Attente de la réception d'un message de bienvenue envoyé par le server sur le canal
 
         while (true) {
-            String commande = input.nextLine(); // attendre le prochain message de l'utilisateur
+            String command = input.nextLine(); // Attendre le prochain message de l'utilisateur
 
-            // Note : Switch case impossible because of pattern matching of strings
-            if (commande.matches("exit")) {
+            // Note : Ici, Switch case impossible à cause du pattern matching de la string
+            if (command.matches("exit")) {
 
-                out.writeUTF(commande); // envoi de message
+                out.writeUTF(command); // Envoi de message
                 socket.close();
                 System.out.println("Vous avez été déconnecté avec succès.");
                 System.exit(0);
 
-            } else if (commande.matches("ls")) {
+            } else if (command.matches("ls")) {
 
-                out.writeUTF(commande); // envoi de message
+                out.writeUTF(command); // Envoi de message
                 System.out.println(in.readUTF()); // Retour du message
 
-            } else if (commande.startsWith("mkdir") || commande.startsWith("cd")) {
+            } else if (command.startsWith("mkdir") && command.split(" ").length == 2) {
 
-                out.writeUTF(commande); // envoi de message
+                out.writeUTF(command); // Envoi de message
+                System.out.println(in.readUTF()); // Retour du message
 
-            } else if (commande.startsWith("download")) {
+            } else if (command.startsWith("cd")){
 
-                out.writeUTF(commande);
-                new RecieveFile(currentDir, commande, in);
+                out.writeUTF(command); // Envoi de message
+                
+            } else if (command.startsWith("download")) {
 
-            } else if (commande.startsWith("upload")) {
+                out.writeUTF(command);
+                new RecieveFile(currentDir, command, in);
 
-                out.writeUTF(commande);
-                new SendFile(currentDir, commande, out);// envoyer un fichier au client
+            } else if (command.startsWith("upload")) {
 
-            } else if (commande.matches("aide")) {
+                out.writeUTF(command);
+                new SendFile(currentDir, command, out);// Envoyer un fichier au client
+
+            } else if (command.matches("aide")) {
 
                 System.out.print(
-                        "Commandes : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");
+                        "commands : \n ls : afficher les fichiers et dossiers \n cd : changer de dossier \n mkdir <nom_du_dossier> : créer un dossier \n download <fichier> \n upload <fichier> \n exit : se déconnecter et quitter \n");
 
             } else {
 
