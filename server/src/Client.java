@@ -15,7 +15,7 @@ public class Client {
     public static void main(String[] args) throws Exception {
         boolean validInput = false;
         while (!validInput) {
-            Connection connectInfos = new Connection();
+            Connection connectInfos = new Connection(input);
             serverAddress = connectInfos.ip;
             port = Integer.parseInt(connectInfos.port);
 
@@ -25,7 +25,7 @@ public class Client {
                 validInput = true;
             } catch (ConnectException e) {
                 System.out.println("Impossible de connecter au server");
-                new Retry();
+                new Retry(input);
                 validInput = false;
             }
         }

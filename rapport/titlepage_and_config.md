@@ -11,7 +11,6 @@ title: |
   |
   |
   |
-  |
 subtitle: |
   | LOG1410
   | Analyse et conception de logiciels
@@ -47,7 +46,7 @@ header-includes: # Deactivate page numbers for Title page and TOC
  - \pagenumbering{gobble}
  - \usepackage{titling}
  - \usepackage{graphicx}
- - \pretitle{\begin{center}\LARGE\includegraphics[width=12cm]{logopoly.png}\\[\bigskipamount]}
+ - \pretitle{\begin{center}\LARGE\includegraphics[width=10cm]{logopoly.png}\\[\bigskipamount]}
  - \posttitle{\end{center}}
 ---
 \newpage <!-- new page after TOC -->

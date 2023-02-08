@@ -1,10 +1,8 @@
 # 1. Introduction 
-> en vos propres mots pour mettre en évidence le contexte et les objectifs du TP.7
 
 Dans le cadre de ce TP, nous avons réalisé une application client-serveur nous permettant de stocker des fichiers sur un serveur de stockage. Pour ce faire, nous avons implémenté une application console qui permet à l'utilisateur d'exécuter une variété de commandes pour interagir avec le serveur. Suite à la connexion au serveur, nous voulons avoir la possibilité de naviguer vers les répertoires enfant ou parent à partir du client, d'afficher la liste des fichiers dans le répertoire courant, de créer des dossiers vides, de téléverser des fichiers provenant du client vers le serveur, de télécharger des fichiers provenant du serveur vers notre répertoire local et enfin, lorsqu'on a fini, de se déconnecter du serveur de stockage. Enfin, nous voulons afficher en temps réél l'historique des commandes utilisées.
 
 # 2. Présentation de vos travaux
-> Une explication de votre solution mettant en lumière la prise en compte des principaux requis du système. Si vous utilisez des configurations particulières des bibliothèques ou des projets, précisez-les également.
 
 Le projet a nécessité plusieurs bibliothèques pour l'implémentation de notre programme, soit :
 - java.io (pour afficher et lire sur le terminal)
@@ -37,12 +35,11 @@ Implémenter un cd fonctionnel vérifiant l'existence et la validité du chemin 
 Finalement, lier la notion de dossier courant (current directory) au sein des autres méthodes a été un défi.
 
 # 4. Critiques et améliorations
-> Il serait intéressant d’inclure vos suggestions pour améliorer le laboratoire.
 
 Le TP est assez simple et il permet de se familiariser avec les échanges entre client et server, ainsi que les contraintes que cela incombe. Il permet d'explorer des connaissances connexes comme le regex, la gestion d'erreurs et le UX. C'est également l'occasion de se familiariser avec les bibliothèques mentionnées ci-haut. 
 
 Le TP est globalement bien balancé.
 
-# Conclusion : Expliquez en quoi ce laboratoire vous a été utile, ce que vous avez appris, si vos attentes ont été comblées, etc.
+# 5. Conclusion 
 
-Nos attentes ont été comblées lors du TP. Notre grand-mère est contente d'avoir pu rendre son pentium 3 utile à la communauté. Cette expérience a été formatrice et nous a permis de comprendre ce qui se cache "sous le capot" des applications client-serveur ainsi que de comprendre les commmandes de base pour la navigation dans les terminaux (ls, cd, mkdir, etc).
+Nos attentes ont été comblées lors du TP. Notre grand-mère est contente d'avoir pu rendre son pentium 3 utile à la communauté. Cette expérience a été formatrice et nous a permis de comprendre ce qui se cache "sous le capot" des applications client-serveur ainsi que de comprendre les commmandes de base pour la navigation dans les terminaux (ls, cd, mkdir, etc). Finalement, le TP nous a sensibilisé la la transmission de fichiers sur un socket, qui doit absolument se faire en divisant un fichier volumineux par petits paquets. 
