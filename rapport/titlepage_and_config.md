@@ -22,6 +22,7 @@ subtitle: |
   |
   |
   |
+  |
 author: |
   | Gabriel Bruyere (2248817) 
   | Nils Coulier (2077378)
@@ -31,6 +32,7 @@ author: |
   |
   |
   | Section de labo 03
+  |
   |
   |
   |
@@ -44,7 +46,7 @@ header-includes: # Deactivate page numbers for Title page and TOC
  - \pagenumbering{gobble}
  - \usepackage{titling}
  - \usepackage{graphicx}
- - \pretitle{\begin{center}\LARGE\includegraphics[width=12cm]{logopoly.png}\\[\bigskipamount]}
+ - \pretitle{\begin{center}\LARGE\includegraphics[width=10cm]{logopoly.png}\\[\bigskipamount]}
  - \posttitle{\end{center}}
 ---
 \newpage <!-- new page after TOC -->
