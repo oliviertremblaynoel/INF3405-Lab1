@@ -1,14 +1,13 @@
 import java.util.Scanner;
 
 class Retry {   
-    public Retry() {
+    public Retry(Scanner userEntry) {
         System.out.println("Entrée invalide.");
         boolean test = true;
-        Scanner entryUse = new Scanner(System.in);
 
         while (test) {
             System.out.println("Souhaitez-vous réessayer o/n?");
-            String answer = entryUse.nextLine();
+            String answer = userEntry.nextLine();
             if (answer.compareToIgnoreCase("N") == 0) {
                 System.out.println("Terminaison du programme");
                 System.exit(0);
@@ -18,10 +17,9 @@ class Retry {
                 System.out.println("Réponse invalide.");
             }
         }
-        entryUse.close();
     }
 
     public static void main(String[] args) {
-        new Retry();
+        new Retry(new Scanner(System.in));
     }
 }

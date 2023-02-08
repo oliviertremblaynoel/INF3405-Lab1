@@ -5,10 +5,10 @@ import java.util.regex.Matcher;
 class Connection {
     public String ip;
     public String port; 
-    Scanner entryUse = new Scanner(System.in);
+    Scanner userEntry;
 
-    public Connection() {
-
+    public Connection(Scanner userEntry) {
+        this.userEntry = userEntry;
         String ipRegex = "^(([0-1]?[0-9]?[0-9]?|2[0-4][0-9]|25[0-5])\\.){3}([0-1]?[0-9]?[0-9]?|2[0-4][0-9]|25[0-5]){1}$";
         // Le regex ci-haut est tiré de : https://stackoverflow.com/questions/31684083/validate-if-input-string-is-a-number-between-0-255-using-regex
         ip = match("Entrez l'adresse IP", ipRegex);
@@ -18,23 +18,23 @@ class Connection {
     }
 
     private String match(String message, String regex) {
-        String exit = "";
+        String output = "";
         boolean validInput = false;
         while (!validInput) {
             System.out.println(message);
-            exit = entryUse.nextLine();
+            output = userEntry.nextLine();
             Pattern p = Pattern.compile(regex);
-            Matcher m = p.matcher(exit);
+            Matcher m = p.matcher(output);
             validInput = m.matches();
             if (!validInput) {
-                new Retry();
+                new Retry(userEntry);
             }
         }
-        return exit;
+        return output;
     }
 
     public static void main(String[] args) {
-        Connection a = new Connection();
+        Connection a = new Connection(new Scanner(System.in));
         System.out.println("IP : " + a.ip);
         System.out.println("PORT : " + a.port);
     }
