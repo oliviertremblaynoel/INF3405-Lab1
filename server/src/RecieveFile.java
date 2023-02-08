@@ -4,15 +4,15 @@ import java.io.IOException;
 
 public class RecieveFile {
     public RecieveFile(String currentDir, String command, DataInputStream in) throws IOException {
-        String filePath = command.split(" ")[1]; // Process command name
-        String[] tmp = filePath.split("/"); // Process command name
-        String fileName = tmp[tmp.length - 1]; // isolate file name without path
+        String filePath = command.split(" ")[1]; // Nom de la commande du processus
+        String[] tmp = filePath.split("/"); // Nom de la commande du processus
+        String fileName = tmp[tmp.length - 1]; // Isoler le nom du fichier sans le chemin
         fileName = currentDir + "/" + fileName; 
 
         if (in.readUTF().equals("OK")) {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 
-            long size = in.readLong(); // read file size
+            long size = in.readLong(); // Lire la taille du fichier
             byte[] buffer = new byte[4 * 1024];
             int bytes;
 
@@ -24,7 +24,7 @@ public class RecieveFile {
 
         } else {
 
-            System.out.println("File not found");
+            System.out.println("Fichier non trouvé");
 
         }
     }

@@ -12,21 +12,19 @@ public class Server {
         String serverAddress = "localhost";
         int serverPort = 5000;
 
-        // Création de la connexien pour communiquer ave les, clients
+        // Création de la connexion pour communiquer avec les clients
         Listener = new ServerSocket();
         Listener.setReuseAddress(true);
         InetAddress serverIP = InetAddress.getByName(serverAddress);
 
         // Association de l'adresse et du port à la connexion
         Listener.bind(new InetSocketAddress(serverIP, serverPort));
-        System.out.format("The server is running on %s:%d%n", serverAddress, serverPort);
+        System.out.format("Le serveur tourne sur : %s:%d%n", serverAddress, serverPort);
 
         try {
-            // À chaque fois qu'un nouveau client se, connecte, on exécute la fonction run()
-            // de l'objet ClientHandler
+            // À chaque fois qu'un nouveau client se, connecte, on exécute la fonction run() de l'objet ClientHandler
             while (true) {
-                // Important : la fonction accept() est bloquante: attend qu'un prochain client
-                // se connecte. Une nouvetle connection : on incémente le compteur clientNumber
+                // Important : la fonction accept() est bloquante: attend qu'un prochain client se connecte. Une nouvelle connexion : on incrémente le compteur clientNumber
                 new ClientHandler(Listener.accept(), clientNumber++).start();
             }
         } finally {
