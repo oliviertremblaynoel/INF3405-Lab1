@@ -11,7 +11,6 @@ title: |
   |
   |
   |
-  |
 subtitle: |
   | LOG1410
   | Analyse et conception de logiciels
@@ -20,7 +19,6 @@ subtitle: |
   |
   |
   |  Laboratoire no. 1
-  |
   |
   |
   |
@@ -33,7 +31,6 @@ author: |
   |
   |
   | Section de labo 03
-  |
   |
   |
   |
