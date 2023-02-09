@@ -116,10 +116,10 @@ public class ClientHandler extends Thread { // Pour traiter la demande de chaque
 
         // Découpage du chemin initial
         String dirCD = message.trim().split(" ")[1];
-        String[] elementsCD = new String[dirDEP.split("\\\\").length];
+        String[] elementsCD = new String[dirDEP.split("/").length];
         int newIndicator = 0;
 
-        for (String elementHERE : dirDEP.split("\\\\")) {
+        for (String elementHERE : dirDEP.split("/")) {
             elementsCD[newIndicator] = elementHERE;
             newIndicator += 1;
         }
@@ -129,10 +129,10 @@ public class ClientHandler extends Thread { // Pour traiter la demande de chaque
             cdCut.push(eachelement);
         }
 
-        String[] elementsCD_2 = new String[currentDir.split("\\\\").length];
+        String[] elementsCD_2 = new String[currentDir.split("/").length];
         int newIndicator_2 = 0;
 
-        for (String elementHERE_2 : currentDir.split("\\\\")) {
+        for (String elementHERE_2 : currentDir.split("/")) {
             elementsCD_2[newIndicator_2] = elementHERE_2;
             newIndicator_2 += 1;
         }
@@ -143,7 +143,7 @@ public class ClientHandler extends Thread { // Pour traiter la demande de chaque
 
         stringBuilder_second.append(currentDir);
 
-        for (String index_cd : dirCD.split("\\\\")) {
+        for (String index_cd : dirCD.split("/")) {
 
             // Chemin dossier alternatif
             File curDir = new File(stringBuilder_second.toString());
@@ -173,7 +173,7 @@ public class ClientHandler extends Thread { // Pour traiter la demande de chaque
                 copy_cdCut = cdCut.clone();
                 while (!copy_cdCut.isEmpty()) {
 
-                    stringBuilder_second.append("\\\\").append(copy_cdCut.pollLast());
+                    stringBuilder_second.append("/").append(copy_cdCut.pollLast());
                 }
 
             } else if (test_check == 1 && !index_cd.isEmpty() && !index_cd.equals(".") && !index_cd.equals("..")) {
@@ -181,7 +181,7 @@ public class ClientHandler extends Thread { // Pour traiter la demande de chaque
                 cdCut.push(index_cd);
                 copy_cdCut = cdCut.clone();
                 while (!copy_cdCut.isEmpty()) {
-                    stringBuilder_second.append("\\\\").append(copy_cdCut.pollLast());
+                    stringBuilder_second.append("/").append(copy_cdCut.pollLast());
                 }
             } else {
                 System.out.println("Le chemin de fichier indiqué n'existe pas ou n'est pas valide.");
@@ -191,7 +191,7 @@ public class ClientHandler extends Thread { // Pour traiter la demande de chaque
 
         // Passage de ArrayDeque à String
         while (!(cdCut.isEmpty())) {
-            stringBuilder.append(cdCut.pollLast()).append("\\"); 
+            stringBuilder.append(cdCut.pollLast()).append("/"); 
                                                                     
         }
 

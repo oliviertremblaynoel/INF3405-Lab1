@@ -9,7 +9,8 @@ public class Server {
         int clientNumber = 0; // Compteur incrémenté à chaque connexion d'un client au serveur
 
         // String serverAddress = "10.200.47.102";
-        String serverAddress = "localhost";
+        InetAddress addr = InetAddress.getLocalHost();
+        String serverAddress =  addr.getHostAddress();
         int serverPort = 5000;
 
         // Création de la connexion pour communiquer avec les clients
